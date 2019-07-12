@@ -3,7 +3,7 @@ import threading
 import sys
 import pickle
 
-class Servidor():
+class Service():
 	"""docstring for Servidor"""
 	def __init__(self, host="localhost", port=4000):
 
@@ -14,18 +14,18 @@ class Servidor():
 		self.sock.listen(10)
 		self.sock.setblocking(False)
 
-		aceptar = threading.Thread(target=self.aceptarCon)
+		accept = threading.Thread(target=self.acceptCon)
 		procesar = threading.Thread(target=self.procesarCon)
 		
-		aceptar.daemon = True
-		aceptar.start()
+		accept.daemon = True
+		accept.start()
 
 		procesar.daemon = True
 		procesar.start()
 
 		while True:
 			msg = input('->')
-			if msg == 'salir':
+			if msg == 'end':
 				self.sock.close()
 				sys.exit()
 			else:
@@ -40,8 +40,8 @@ class Servidor():
 			except:
 				self.clientes.remove(c)
 
-	def aceptarCon(self):
-		print("aceptarCon iniciado")
+	def acceptCon(self):
+		print("接受新连接")
 		while True:
 			try:
 				conn, addr = self.sock.accept()
@@ -51,7 +51,7 @@ class Servidor():
 				pass
 
 	def procesarCon(self):
-		print("ProcesarCon iniciado")
+		print("转发")
 		while True:
 			if len(self.clientes) > 0:
 				for c in self.clientes:
@@ -63,4 +63,4 @@ class Servidor():
 						pass
 
 
-s = Servidor()
+s = Service()

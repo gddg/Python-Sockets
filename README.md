@@ -1,2 +1,8 @@
 # Python-Sockets
-Pequeña guia sobre como utilizar sockets no bloqueantes en python mediante la creación de un chat.
+
+fork：
+https://github.com/hcastillaq/Python-Sockets
+
+
+tcp收发消息，多线程，服务器端客户端。
+
